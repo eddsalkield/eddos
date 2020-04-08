@@ -1,0 +1,28 @@
+{{- $eddos_level := promptString "Enter the desired installation level (bootstrap/core/desktop)" -}}
+{{ if and (and (ne $eddos_level "bootstrap") (ne $eddos_level "core")) (ne $eddos_level "desktop") -}}
+    {{ fail "Invalid installation level" -}}
+{{ end -}}
+{{ $install_bootstrap := true -}}
+{{ $install_core := or (eq $eddos_level "core") (eq $eddos_level "desktop") -}}
+{{ $install_desktop := eq $eddos_level "desktop" -}}
+{{ $eddos_shell := "" -}}
+{{ if $install_core -}}
+    {{- $eddos_shell = promptString "Configure for which shell? (bash/zsh)" -}}
+    {{ if and (ne $eddos_shell "bash") (ne $eddos_shell "zsh") -}}
+        {{ fail "Invalid installation level" -}}
+    {{ end -}}
+{{ end -}}
+{{ $_install_packages := promptString "Install packages? (y/n)" -}}
+{{ if and (ne $_install_packages "y") (ne $_install_packages "n") -}}
+    {{ fail "Invalid option" -}}
+{{ end -}}
+{{ $install_packages := eq $_install_packages "y" }}
+
+    
+[data]
+    [data.eddos]
+    install_bootstrap = {{ $install_bootstrap }}
+    install_core = {{ $install_core }}
+    install_desktop = {{ $install_desktop }}
+    shell = "{{ $eddos_shell }}"
+    install_packages = {{ $install_packages }}

@@ -1,0 +1,5 @@
+bootstrap_packages="dnf-command(copr)"
+core_packages="diffutils util-linux-user findutils file curl exa nnn wget htop NetworkManager-wifi NetworkManager-tui lm_sensors openssh openssh-server procps-ng man pv unzip pciutils bind-utils usbutils tcpdump unar iotop which"
+core_bash="bash-completion"
+core_zsh="zsh zsh-syntax-highlighting"
+desktop_packages="mesa_dri_drivers sway bemenu mupdf mako libnotify"

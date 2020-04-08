@@ -1,0 +1,171 @@
+# Transparent install function.  Lets the user know what's going on
+function transparent_install {
+	package="$1"
+
+        # Test if DNF installed
+        dnf > /dev/null
+        if [ $? -ne 0 ]; then
+                echo "DNF not installed.  Are you on Fedora?"
+                return 1
+        fi
+
+	if dnf list --installed | grep -q "$1"; then
+		echo "$package already installed"
+		return 0
+	fi
+
+        # Installs the package
+	echo "Installing package(s) $package."
+	sudo dnf -y install $package
+
+        if [ $? -ne 0 ]; then
+                echo "Installation failed."
+                return 1
+        fi
+	return 0
+}
+
+
+# Transparent remove function.  Lets the user know what's going on
+function transparent_remove {
+	package="$1"
+
+        # Test if DNF installed
+        dnf > /dev/null
+        if [ $? -ne 0 ]; then
+                echo "DNF not installed.  Are you on Fedora?"
+                return 1
+        fi
+
+        # Installs the package
+	echo "Removing package(s) $package."
+	sudo dnf -y remove $1
+
+        if [ $? -ne 0 ]; then
+                echo "Removal failed."
+                return 1
+        fi
+}
+
+
+# Transparent COPR enable function.  Lets the user know what's going on
+function transparent_copr_enable {
+	repo="$1"
+
+        # Test if DNF installed
+        dnf > /dev/null
+        if [ $? -ne 0 ]; then
+                echo "DNF not installed.  Are you on Fedora?"
+                return 1
+        fi
+
+        # Enable the COPR repo
+	echo "Enabling COPR repo(s) $repo."
+	sudo dnf -y copr enable $1
+	
+        if [ $? -ne 0 ]; then
+                echo "COPR enable failed."
+                return 1
+        fi
+}
+
+# Transparent COPR disable function.  Lets the user know what's going on
+function transparent_copr_disable {
+        # Test if DNF installed
+        dnf > /dev/null
+        if [ $? -ne 0 ]; then
+                echo "DNF not installed.  Are you on Fedora?"
+                return 1
+        fi
+
+        # Disable the COPR repo
+	echo "Disabling COPR repo(s) $repo."
+	sudo dnf -y copr disable $1
+
+        if [ $? -ne 0 ]; then
+                echo "COPR disable failed."
+                return 1
+        fi
+}
+
+function transparent_make_root_executable {
+	file="$1"
+	contents="$2"
+
+	if [ -e "$1" ]; then
+		echo "$1 already exists.  No changes made."
+		return 0
+	fi
+
+	echo "Creating executable file $1 as root."
+	sudo sh -c 'echo -e "$1" > "$2"' '' "$contents" "$file"
+	sudo chmod 755 "$file"
+}
+
+function transparent_remove_root_file {
+	file="$1"
+
+	if [ ! -e "$1" ]; then
+		echo "$1 does not exist.  No changes made."
+		return 0
+	fi
+
+	echo "Removing file $1 as root."
+	sudo rm "$1"
+}
+
+function transparent_curl {
+	file="$1"
+	url="$2"
+
+	if [ -e "$1" ]; then
+		echo "$1 exists.  No changes made."
+		return 0
+	fi
+
+	echo "Downloading $2 to $1."
+	curl -fLo "$1" --create-dirs "$2"
+}
+
+function transparent_regenerate_initramfs {
+        # Test if DNF installed
+        dnf > /dev/null
+        if [ $? -ne 0 ]; then
+                echo "DNF not installed.  Are you on Fedora?"
+                return 1
+        fi
+
+	if ! dnf list --installed | grep -q "kernel-core"; then
+		echo "kernel-core not installed"
+		return 0
+	fi
+
+        # Installs the package
+	echo "Reinstalling package kernel-core."
+	sudo dnf -y reinstall kernel-core
+
+        if [ $? -ne 0 ]; then
+                echo "Reinstallation failed."
+                return 1
+        fi
+	return 0
+}
+
+function transparent_update_system {
+        # Test if DNF installed
+        dnf > /dev/null
+        if [ $? -ne 0 ]; then
+                echo "DNF not installed.  Are you on Fedora?"
+                return 1
+        fi
+
+        # Installs the package
+	echo "Updating system."
+	sudo dnf -y upgrade
+
+        if [ $? -ne 0 ]; then
+                echo "System update failed."
+                return 1
+        fi
+	return 0
+}

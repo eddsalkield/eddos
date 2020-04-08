@@ -1,0 +1,54 @@
+#!/bin/sh
+{{ if .eddos.install_packages -}}
+    {{ if eq .chezmoi.osRelease.name "Fedora" -}}
+        {{ template "dnf" }}
+    {{ else -}}
+        {{ fail "OS unsupported by eddos" }}
+    {{ end -}}
+
+    {{ template "packages" }}
+
+    {{ if .eddos.install_bootstrap }}
+        transparent_install "$bootstrap_packages"
+    {{ end -}}
+
+    {{ if .eddos.install_core }}
+        transparent_install "$core_packages"
+        {{ if eq .eddos.shell "bash" }}
+            transparent_install "$core_bash"
+        {{ end -}}
+        {{ if eq .eddos.shell "zsh" }}
+            transparent_install "$core_zsh"
+            {{/* Customise zsh */}}
+            env ZSH=${XDG_CONFIG_HOME:-$HOME/.config}/oh-my-zsh RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+            git clone https://github.com/romkatv/powerlevel10k.git "${XDG_CONFIG_HOME:-$HOME/.config}/oh-my-zsh/themes/powerlevel10k"
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${XDG_CONFIG_HOME:-$HOME/.config}/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+            git clone https://github.com/zsh-users/zsh-autosuggestions.git "${XDG_CONFIG_HOME:-$HOME/.config}/oh-my-zsh/custom/plugins/zsh-autosuggestions"
+            chsh -s /bin/zsh
+        {{ end -}}
+
+        {{/* Install neovim with plugins */}}
+        transparent_install neovim
+        transparent_make_root_executable "/usr/local/bin/vim" '#!/bin/sh\nnvim "$@"'
+        transparent_curl "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" \
+        "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
+        {{/* Install tmux with xdg wrapper */}}
+        transparent_copr_enable eddsalkield/tmux-xdg
+        transparent_install tmux-xdg
+    {{ end -}}
+
+
+    {{ if .eddos.install_desktop }}
+        transparent_install "$desktop_packages"
+
+        transparent_copr_enable pschyska/alacritty
+        transparent_install alacritty
+
+        transparent_install firefox-wayland
+        transparent_make_root_executable "/usr/local/bin/firefox" '#!/bin/sh\nfirefox-wayland "$@"'
+
+        transparent_copr_enable eddsalkield/swaylock-effects
+        transparent_install swaylock-effects
+    {{ end -}}
+{{ end -}}
