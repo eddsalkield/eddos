@@ -123,3 +123,7 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 #_comp_options+=(globdots)		# Include hidden files.
+
+# Source shell additions
+source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/imports
+source ${XDG_CONFIG_HOME:-$HOME/.config}/eddos-shell/imports
