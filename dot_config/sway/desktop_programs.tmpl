@@ -1,0 +1,10 @@
+{{ if .eddos.install_desktop -}}
+set $term alacritty -e tmux
+set $menu bemenu-run -p "" | xargs swaymsg exec --
+set $browser firefox-wayland
+set $explorer alacritty -e "env EDITOR=nvim NNN_PLUG=\"t:thumb\" nnn"
+
+# Start common programs
+bindsym $mod+z exec $browser
+bindsym $mod+n exec $explorer
+{{ end -}}

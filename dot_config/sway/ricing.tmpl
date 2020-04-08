@@ -1,0 +1,13 @@
+{{ if .eddos.install_desktop -}}
+smart_borders on
+default_border pixel
+gaps inner 7
+gaps outer 4
+# Configure focussed window border colour
+client.unfocused #00000000 #00000000 #00000000 #00000000 #00000000
+client.focused_inactive #00000000 #00000000 #00000000 #00000000 #00000000
+client.focused #00000000 #00000000 #00000000 #00000000 #00000000
+
+# Enable fading unfocussed windows
+exec swayfade
+{{ end -}}

@@ -1,0 +1,4 @@
+{{ if .eddos.install_desktop -}}
+bindcode 123 exec amixer sset Master 5%+
+bindcode 122 exec amixer sset Master 5%-
+{{ end -}}

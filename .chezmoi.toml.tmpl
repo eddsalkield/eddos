@@ -17,6 +17,12 @@
     {{ fail "Invalid option" -}}
 {{ end -}}
 {{ $install_packages := eq $_install_packages "y" }}
+{{ $_is_hidpi := promptString "Are you using a hidpi display? (y/n)" -}}
+{{ if and (ne $_is_hidpi "y") (ne $_install_packages "n") -}}
+    {{ fail "Invalid option" -}}
+{{ end -}}
+{{ $is_hidpi := eq $_install_packages "y" }}
+
 
     
 [data]
@@ -26,3 +32,4 @@
     install_desktop = {{ $install_desktop }}
     shell = "{{ $eddos_shell }}"
     install_packages = {{ $install_packages }}
+    is_hidpi = {{ $is_hidpi }}
