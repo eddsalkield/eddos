@@ -15,4 +15,9 @@ bind-key l select-pane -R
 
 # Remove nested vim delay (see https://stackoverflow.com/questions/12312178/tmux-and-vim-escape-key-being-seen-as-and-having-long-delay#13843382)
 set -s escape-time 0
+
+{{ if eq .eddos.shell "zsh" -}}
+set -g default-shell /bin/zsh
+{{ end -}}
+
 {{ end -}}

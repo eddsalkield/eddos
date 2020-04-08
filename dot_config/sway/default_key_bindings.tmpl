@@ -1,0 +1,12 @@
+{{ if .eddos.install_desktop -}}
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+bindsym $mod+Escape exec swaylock
+
+# Screen Brightness
+bindsym $mod+plus exec light -A 10
+bindsym $mod+equal exec light -U 10
+{{ end -}}

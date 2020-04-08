@@ -1,20 +1,20 @@
 {{ if .eddos.install_desktop -}}
 include ./localisation
 include ./default_key_bindings
-include ./desktop_programs
 include ./ricing
 include ./bind_keys
+include ./desktop_programs
 include ./auto_include/*
 
 # Set wallpaper (TODO: replace with settimed from wallutils when mature)
-output * bg ${XDG_DATA_HOME:-$HOME/.local/share}/wallpapers/eddos/mojave/mojave_dynamic-1700.jpg
+output * bg ${XDG_DATA_HOME:-$HOME/.local/share}/wallpapers/eddos/mojave/mojave_dynamic-1700.jpg fill
 
 # Start notifications daemon
 exec mako
 
 # Idle configuration
 exec swayidle -w \
-         timeout 60 'swaylock -f -c 000000' \
+         timeout 60 'swaylock -f' \
          timeout 80 'swaymsg "output * dpms off"' \
               resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f'
