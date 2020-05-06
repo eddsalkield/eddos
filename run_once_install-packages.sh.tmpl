@@ -24,7 +24,7 @@
             git clone https://github.com/romkatv/powerlevel10k.git "${XDG_CONFIG_HOME:-$HOME/.config}/oh-my-zsh/themes/powerlevel10k"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${XDG_CONFIG_HOME:-$HOME/.config}/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
             git clone https://github.com/zsh-users/zsh-autosuggestions.git "${XDG_CONFIG_HOME:-$HOME/.config}/oh-my-zsh/custom/plugins/zsh-autosuggestions"
-            chsh -s /bin/zsh
+            # chsh -s /bin/zsh # Not necessary since tmux is configured to use the new shell
         {{ end -}}
 
         {{/* Install neovim with plugins */}}
@@ -56,4 +56,6 @@
 
         transparent_remove dmenu
     {{ end -}}
+{{ end -}}
+{{ if .eddos.is_hidpi -}}
 {{ end -}}

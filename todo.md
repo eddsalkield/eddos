@@ -22,9 +22,18 @@ Spawn new swayidle immediately after swaylock-effects
 # sway-idle fading
 
 # multiple scratchpads
+https://github.com/swaywm/sway/issues/4790
 
 # stretch: dymanic tiling mode
 
 # display manager (maybe ly or berry-dm fork?)
 
 # Multi monitor support
+
+# sway - fix large cursor on hidpi
+
+# Add shortcuts in alignment with LARBS
+
+# Fix tmux XDG spec problems
+
+# Learn wofi, make menus for wifi, powering off etc.

@@ -4,7 +4,7 @@
      "height": 25,
      "modules-left": ["sway/workspaces", "sway/mode"],
      "modules-center": ["sway/window"],
-     "modules-right": ["pulseaudio", "network", "battery", "clock", "tray"],
+     "modules-right": ["idle_inhibitor", "pulseaudio", "network", "battery", "clock", "tray"],
      "sway/window": {
           "max-length": 50
      },
@@ -16,6 +16,13 @@
          "format-disconnected": "Disconnected ⚠",
          "format-alt": "{ifname}: {ipaddr}/{cidr}"
      },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
      "pulseaudio": {
          // "scroll-step": 1, // %, can be a float
          "format": "{volume}% {icon} {format_source}",
