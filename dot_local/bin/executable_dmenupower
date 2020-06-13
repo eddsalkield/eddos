@@ -1,0 +1,14 @@
+#!/bin/sh
+
+selection="$(echo -e 'shutdown\nreboot' | wofi --show dmenu -p 'Shutdown options')"
+
+if [ -n "$selection" ]; then
+    if [ "$selection" = "shutdown" ]; then
+        poweroff
+    elif [ "$selection" = "reboot" ]; then
+        reboot
+    else
+        echo "Invalid selection"
+        exit 1
+    fi
+fi

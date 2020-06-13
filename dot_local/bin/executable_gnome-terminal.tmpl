@@ -1,0 +1,7 @@
+{{ if .eddos.install_desktop -}}
+#!/bin/sh
+# This is a horrendous bodge because glib's handling of default terminals sucks:
+# https://gitlab.gnome.org/GNOME/glib/-/issues/338
+command="$(echo "$@" | cut -c4-)"
+/usr/bin/alacritty -e "$command"
+{{ end -}}

@@ -1,7 +1,8 @@
 {{ if .eddos.install_desktop -}}
 #set $term alacritty -e tmux
 set $term alacritty
-set $menu bemenu-run -p "" | xargs swaymsg exec --
+#set $menu bemenu-run -p "" | xargs swaymsg exec --
+set $menu wofi --show drun
 set $browser firefox-wayland
 set $explorer alacritty -e "env EDITOR=nvim NNN_PLUG=\"t:thumb\" nnn"
 

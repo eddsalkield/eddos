@@ -4,6 +4,16 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
+" vimwiki settings
+filetype plugin on
+syntax on
+
+let wiki = {}
+let wiki.path = '~/shared/vimwiki'
+let g:vimwiki_list = [wiki]
+
+Plug 'vimwiki/vimwiki'
+
 call plug#end()
 
 set number relativenumber
@@ -31,7 +41,7 @@ func! WordProcessor()
 	setlocal wrap
 	setlocal linebreak
 	" spelling and thesaurus
-	setlocal spell spelllang=en_gb
+	" setlocal spell spelllang=en_gb
 	" set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
 	" complete+=s makes autocompletion search the thesaurus
 	" set complete+=s
