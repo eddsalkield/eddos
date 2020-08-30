@@ -1,4 +1,9 @@
 {{ if .eddos.install_desktop -}}
+# Start common programs
+bindsym $mod+z exec $browser
+bindsym $mod+n exec $explorer
+bindsym $mod+x exec passmenu
+
 bindcode 123 exec amixer sset Master 5%+
 bindcode 122 exec amixer sset Master 5%-
 {{ end -}}

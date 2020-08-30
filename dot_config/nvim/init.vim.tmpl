@@ -5,7 +5,6 @@ Plug 'tpope/vim-sensible'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 " vimwiki settings
-filetype plugin on
 syntax on
 
 let wiki = {}
@@ -23,13 +22,17 @@ filetype indent plugin on
 set shiftwidth=4
 set tabstop=4
 set expandtab
-autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
+" autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
 
 " Press ctrl-N twice to toggle line numberings
 :nmap <C-N><C-N> :set invnumber invrelativenumber<CR>
 
 " Ctrl+c to yank to system clipboard
 vnoremap <C-c> "+y
+
+" Replace mode works in block select
+" https://vi.stackexchange.com/questions/10518/search-and-replace-inside-block-selected-text
+vnoremap : :s/\%V
 
 func! WordProcessor()
 	" movement changes
@@ -48,3 +51,15 @@ func! WordProcessor()
 endfu
 com! WP call WordProcessor()
 {{ end -}}
+
+" :DiffSaved to see changes since last save
+" :diffoff to go back
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+

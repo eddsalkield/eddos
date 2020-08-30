@@ -18,9 +18,6 @@
 {{ end -}}
 {{ $install_packages := eq $_install_packages "y" }}
 {{ $_is_hidpi := promptString "Are you using a hidpi display? (y/n)" -}}
-{{ if and (ne $_is_hidpi "y") (ne $_install_packages "n") -}}
-    {{ fail "Invalid option" -}}
-{{ end -}}
 {{ $is_hidpi := eq $_install_packages "y" }}
 
 
