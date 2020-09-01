@@ -32,9 +32,8 @@
         transparent_curl "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" \
         "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-        {{/* Install tmux with xdg wrapper */}}
-        transparent_copr_enable eddsalkield/tmux-xdg
-        transparent_install tmux-xdg
+        transparent_copr_enable blainester/tomb
+        transparent_install tomb
     {{ end -}}
 
 
