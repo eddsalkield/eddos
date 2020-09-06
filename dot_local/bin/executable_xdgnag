@@ -29,7 +29,7 @@ if [ "$n_bad_dotfiles" -ne "0" ]; then
     if [ "$1" == "-v" ]; then
         echo "$bad_dotfiles"
     else
-        echo "To list the files, run with the -v flag."
+        echo "To list the files, run \`xdgnag -v\`."
         echo "To set excludes, use file $excludes_file."
     fi
 fi
