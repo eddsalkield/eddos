@@ -1,3 +1,6 @@
 if [ -d ${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliases ]; then for f in $(find "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliases/" -type f); do source $f; done; fi
 if [ -d ${XDG_CONFIG_HOME:-$HOME/.config}/shell/environment ]; then for f in $(find "${XDG_CONFIG_HOME:-$HOME/.config}/shell/environment/" -type f); do source $f; done; fi
 if [ -d ${XDG_CONFIG_HOME:-$HOME/.config}/shell/path ]; then for f in $(find "${XDG_CONFIG_HOME:-$HOME/.config}/shell/path/" -type f); do source $f; done; fi
+if [ -f ${XDG_CONFIG_HOME:-$HOME/.config}/shell/startup ]; then
+    source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/startup
+fi

@@ -1,0 +1,35 @@
+#!/bin/sh
+# Nags you whenever your home directory contains hidden files that
+# are not in accord with the XDG base directory spec
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+
+set -e
+
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME"/.config} XDG_DATA_HOME=${XDG_DATA_HOME:-"$HOME"/.local}  # Technically .local/share, but
+                                                # .local suffices as a prefix
+XDG_CACHE_HOME=${XDG_CACHE_HOME:-"$HOME"/.cache}
+
+excludes_file="$XDG_CONFIG_HOME/xdgnag/excludes"
+
+dotfiles=$(find "$HOME" -maxdepth 1 | grep "^"$HOME"/\..*")
+bad_dotfiles=$(echo "$dotfiles" | grep -v "$XDG_CONFIG_HOME" \
+               | grep -v "$XDG_DATA_HOME" \
+               | grep -v "$XDG_CACHE_HOME")
+
+# Count the bad dotfiles
+if [ -f "$excludes_file" ]; then
+    dotfiles=$(echo $dotfiles | grep -vf "$excludes_file")
+fi
+
+n_bad_dotfiles=$(echo "$bad_dotfiles" | wc -l)
+
+# Display the report to the user
+if [ "$n_bad_dotfiles" -ne "0" ]; then
+    echo "home_dir_nag: $n_bad_dotfiles dotfiles currently litter your home directory!"
+    if [ "$1" == "-v" ]; then
+        echo "$bad_dotfiles"
+    else
+        echo "To list the files, run with the -v flag."
+        echo "To set excludes, use file $excludes_file."
+    fi
+fi

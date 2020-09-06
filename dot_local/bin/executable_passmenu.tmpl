@@ -1,3 +1,4 @@
+{{ if .eddos.install_desktop -}}
 #!/usr/bin/env bash
 # Present a wofi prompt for password selection
 # Copies the selection to the clipboard
@@ -16,3 +17,4 @@ password=$(printf '%s\n' "${password_files[@]}" | wofi -d --prompt="passmenu" "$
 [[ -n $password ]] || exit
 
 pass show -c "$password" 2>/dev/null
+{{ end -}}

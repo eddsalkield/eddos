@@ -13,6 +13,9 @@ output * bg ${XDG_DATA_HOME:-$HOME/.local/share}/wallpapers/eddos/mojave/mojave_
 exec mako
 exec udiskie
 
+# Start XDG nagging daemon
+exec xdgnagd
+
 # Idle configuration
 exec swayidle -w \
          timeout 60 'swaylock -f' \

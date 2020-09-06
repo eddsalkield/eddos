@@ -1,0 +1,8 @@
+{{ if .eddos.install_desktop -}}
+#!/bin/sh
+# Notifies the user whenever a dotfile is littered in their home directory
+
+inotifywait --quiet -e create -m --format "%f" "$HOME" | \
+    grep --line-buffered "^\..*" | \
+    xargs -n1 -I "{}" notify-send xdgnagd "dotfile litter $HOME{} dropped"
+{{ end -}}
