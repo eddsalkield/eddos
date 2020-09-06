@@ -1,0 +1,5 @@
+dir=${XDG_CACHE_HOME:-$HOME/.cache}/less
+if [ ! -d "$dir" ]; then
+    mkdir "$dir"
+fi
+export LESSHISTFILE="$dir/lesshst"
